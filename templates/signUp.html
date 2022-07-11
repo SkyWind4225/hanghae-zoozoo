@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}항해ZOOZOO | 회원가입{% endblock %}
+
+{% block section %}
+    <div class="signup_box">
+        <div class="input-group mb-3">
+            <input type="text" id="input-id" class="form-control" placeholder="아이디를 입력하세요">
+            <button onclick="check_id()" class="btn btn-outline-secondary" type="button">중복확인</button>
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" id="input-name" class="form-control" placeholder="닉네임을 입력하세요">
+            <button onclick="check_name()" class="btn btn-outline-secondary" type="button">중복확인</button>
+        </div>
+        <input type="password" class="form-control" id="password1" placeholder="비밀번호를 입력하세요">
+        <label for="password1"></label>
+        <input type="password" class="form-control" id="password2" placeholder="비밀번호를 다시 입력하세요">
+        <label for="password2"></label>
+        <div class="d-grid gap-2 d-md-block">
+            <button onclick="sign_up()" class="btn btn-dark" type="button">회원가입</button>
+            <button class="btn btn-outline-dark" type="button">취소</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/signUp.js') }}"></script>
+{% endblock %}

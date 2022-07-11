@@ -1,0 +1,21 @@
+header {
+    width: 100%;
+    height: 80px;
+
+    box-shadow: 0 0 6px 0 gray;
+}
+
+.wrap-header {
+    margin: 0 auto;
+    max-width: 1000px;
+    width: 95%;
+    height: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+}

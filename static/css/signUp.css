@@ -1,0 +1,7 @@
+.signup_box {
+    width: 95%;
+    max-width: 500px;
+    margin: 100px auto 0 auto;
+    padding: 20px;
+    box-shadow: 0px 0px 6px 0px gray;
+}

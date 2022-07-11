@@ -1,0 +1,15 @@
+<header>
+    <div class="wrap-header">
+        <h1 class="logo">
+            <a href="/">
+                <img src="../static/img/Hanghae%20ZOOZOO.png">
+            </a>
+        </h1>
+        <div class="header-btn d-grid gap-2 d-md-block">
+            <button onclick="signUp()" class="btn btn-dark " type="button">회원가입</button>
+            <button onclick="login()" class="btn btn-dark" type="button">로그인</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/signUp.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+</header>

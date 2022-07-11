@@ -1,0 +1,11 @@
+.nav {
+    margin-top: 30px;
+}
+
+.nav a {
+    color: black;
+}
+
+.nav a:hover {
+    font-weight: 700;
+}
