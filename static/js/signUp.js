@@ -1,23 +1,17 @@
-// //배너에 버튼 숨기기
-// window.addEventListener('load', function () {
-//     let sign_page = '/signUp';
-//     let now_href = location.pathname;
-//     let hide_header_btn = document.querySelector('.header-btn');
-//     let logo_center = document.querySelector('.logo a');
-//     if (now_href === sign_page) {
-//         hide_header_btn.style.display = 'none';
-//         logo_center.style.justifyContent = 'center';
-//     }
-// });
-
 //회원가입 페이지로 이동
 function signUp() {
     window.location.href = '/signUp';
 }
 
-//아이디 및 닉네임 형식 확인
-function is_nickname(asValue) {
+//아이디 형식 확인
+function is_id(asValue) {
     var regExp = /^(?=.*[a-zA-Z])[-a-zA-Z0-9_.]{2,10}$/;
+    return regExp.test(asValue);
+}
+
+//닉네임 형식 확인
+function is_nickname(asValue) {
+    var regExp = /^(?=.*[a-zA-Z가-힣])[a-zA-Z가-힣]{2,10}$/;
     return regExp.test(asValue);
 }
 
@@ -36,7 +30,7 @@ function check_id() {
         $("#input-id").focus()
         return;
     }
-    if (!is_nickname(userid)) {
+    if (!is_id(userid)) {
         alert("아이디는 2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.")
         $("#input-id").focus()
         return;
@@ -70,7 +64,7 @@ function check_name() {
         return;
     }
     if (!is_nickname(username)) {
-        alert("닉네임은 2-10자의 영문과 숫자와 일부 특수문자(._-)만 입력 가능합니다.")
+        alert("닉네임은 2-10자의 영문과 한글만 입력 가능합니다.")
         $("#input-name").focus()
         return;
     }
@@ -101,35 +95,27 @@ function sign_up() {
     let password2 = $("#password2").val()
     console.log(userid, username, password, password2)
 
-    // if ($("#help-id").hasClass("is-danger")) {
-    //     alert("아이디를 다시 확인해주세요.")
-    //     return;
-    // } else if (!$("#help-id").hasClass("is-success")) {
-    //     alert("아이디 중복확인을 해주세요.")
-    //     return;
-    // }
-
     if (password == "") {
-        alert("비밀번호를 입력해주세요.")
+        $("#help-password").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
         $("#password1").focus()
         return;
     } else if (!is_password(password)) {
-        alert("비밀번호의 형식을 확인해주세요. 영문과 숫자 필수 포함, 특수문자(!@#$%^&*) 사용가능 8-20자")
+        $("#help-password").text("비밀번호의 형식을 확인해주세요. 영문과 숫자 필수 포함, 특수문자(!@#$%^&*) 사용가능 8-20자").removeClass("is-safe").addClass("is-danger")
         $("#password1").focus()
         return
     } else {
-        alert("사용할 수 있는 비밀번호입니다.")
+        $("#help-password").text("사용할 수 있는 비밀번호입니다.").removeClass("is-danger").addClass("is-success")
     }
     if (password2 == "") {
-        alert("비밀번호를 입력해주세요.")
+        $("#help-password2").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")
         $("#password2").focus()
         return;
     } else if (password2 != password) {
-        alert("비밀번호가 일치하지 않습니다.")
+        $("#help-password2").text("비밀번호가 일치하지 않습니다.").removeClass("is-safe").addClass("is-danger")
         $("#password2").focus()
         return;
     } else {
-        alert("비밀번호가 일치합니다.")
+        $("#help-password2").text("비밀번호가 일치합니다.").removeClass("is-danger").addClass("is-success")
     }
     $.ajax({
         type: "POST",
