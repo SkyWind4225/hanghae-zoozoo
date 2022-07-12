@@ -58,3 +58,11 @@ function sign_out() {
     $.removeCookie('mytoken', {path: '/'});
     window.location.href = "/"
 }
+
+//엔터 버튼 눌러서 로그인하기
+$(document).keyup(function(e) {
+   // focus 되고 enter눌렀을 경우
+   if ($(".enter-login").is(":focus") && e.key == "Enter") {
+      sign_in()
+   }
+});

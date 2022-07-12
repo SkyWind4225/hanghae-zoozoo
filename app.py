@@ -16,7 +16,18 @@ db = client.dbsparta
 
 @app.route('/')
 def home():
-    return render_template('mainpage.html')
+    try:
+        token_receive = request.cookies.get('mytoken')
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({'userid': payload['id']})
+        nickname = user_info['username']
+        return render_template('mainpage.html', nickname = nickname)
+
+    except jwt.ExpiredSignatureError:
+        return render_template('mainpage.html')
+
+    except jwt.exceptions.DecodeError:
+        return render_template('mainpage.html')
 
 # 로그인 화면으로 이동
 @app.route('/login')
@@ -80,6 +91,7 @@ def sign_in():
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
+
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)
