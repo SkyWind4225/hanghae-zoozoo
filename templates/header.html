@@ -5,10 +5,18 @@
                 <img src="../static/img/Hanghae%20ZOOZOO.png">
             </a>
         </h1>
-        <div class="header-btn d-grid gap-2 d-md-block">
-            <button onclick="signUp()" class="btn btn-dark" type="button">회원가입</button>
-            <button onclick="login()" class="btn btn-dark" type="button">로그인</button>
-        </div>
+        <ul class="header-list">
+            <li><span onclick="signUp()">회원가입</span></li>
+            <li><span onclick="login()">로그인</span></li>
+        </ul>
+        <ul class="header-list2">
+            <li>
+                <i class="fa-solid fa-user"></i>
+                <span>{{ nickname }}님 환영합니다!</span>
+            </li>
+            <li><span>글작성</span></li>
+            <li><span onclick="sign_out()">로그아웃</span></li>
+        </ul>
     </div>
     <script src="{{ url_for('static', filename='js/signUp.js') }}"></script>
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>

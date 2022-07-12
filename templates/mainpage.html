@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}항해ZOOZOO | 메인{% endblock %}
+
+{% block section %}
+    {% include "nav.html" %}
+
+    {#  성규님 카드 html 넣는곳  #}
+
+    <script src="{{ url_for('static', filename='js/mainpage.js') }}"></script>
+{% endblock %}

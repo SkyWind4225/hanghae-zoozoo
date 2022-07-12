@@ -1,3 +1,15 @@
+//배너 버튼 숨기기
+window.addEventListener('load', function () {
+    let sign_page = '/signUp';
+    let now_href = location.pathname;
+    let hide_list = document.querySelector('.header-list');
+    let logo_center = document.querySelector('.wrap-header');
+    if (now_href === sign_page) {
+        hide_list.style.display = 'none';
+        logo_center.style.justifyContent = 'center';
+    }
+});
+
 //회원가입 페이지로 이동
 function signUp() {
     window.location.href = '/signUp';

@@ -19,3 +19,17 @@ header {
 .logo img {
     height: 50px;
 }
+
+.header-list {
+    display: flex;
+}
+
+.header-list li, .header-list2 li {
+    font-weight: 700;
+    cursor: pointer;
+    margin-left: 30px;
+}
+
+.header-list2 {
+    display: none;
+}

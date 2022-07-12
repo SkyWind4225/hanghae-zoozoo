@@ -1,9 +1,14 @@
-from flask import Flask, render_template, request, jsonify
+from pymongo import MongoClient
+import jwt
+import datetime
+import hashlib
+from flask import Flask, render_template, request, jsonify, redirect, url_for
+from datetime import datetime, timedelta
+import certifi
+
 app = Flask(__name__)
 
-from pymongo import MongoClient
-import certifi
-import hashlib
+SECRET_KEY = 'ZOOZOO'
 
 ca = certifi.where()
 client = MongoClient('mongodb+srv://test:sparta@cluster0.bglkk.mongodb.net/Cluster0?retryWrites=true&w=majority', tlsCAFile=ca)
@@ -11,7 +16,7 @@ db = client.dbsparta
 
 @app.route('/')
 def home():
-   return render_template('base.html')
+    return render_template('mainpage.html')
 
 # 로그인 화면으로 이동
 @app.route('/login')
@@ -51,7 +56,30 @@ def sign_up():
         "password": password_hash,                              # 비밀번호
     }
     db.users.insert_one(doc)
+
     return jsonify({'result': 'success'})
+
+# 로그인
+@app.route('/signIn', methods=['POST'])
+def sign_in():
+    # 로그인
+    userid_receive = request.form['userid_give']
+    password_receive = request.form['password_give']
+
+    pw_hash = hashlib.sha256(password_receive.encode('utf-8')).hexdigest()
+    result = db.users.find_one({'userid': userid_receive, 'password': pw_hash})
+
+    if result is not None:
+        payload = {
+         'id': userid_receive,
+         'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
+        }
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+
+        return jsonify({'result': 'success', 'token': token})
+    # 찾지 못하면
+    else:
+        return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
 if __name__ == '__main__':
    app.run('0.0.0.0', port=5000, debug=True)

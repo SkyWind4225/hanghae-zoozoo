@@ -3,5 +3,17 @@
 {% block title %}항해ZOOZOO | 로그인{% endblock %}
 
 {% block section %}
+    <div class="signup_box">
+        <div class="input-group mb-3">
+            <input type="text" id="login-id" class="form-control" placeholder="아이디를 입력하세요">
+        </div>
+        <p id="help-id-login" class="help"></p>
+        <div class="input-group mb-3">
+            <input type="password" class="form-control" id="login-password" placeholder="비밀번호를 입력하세요">
+        </div>
+        <p id="help-password-login" class="help"></p>
+        <button onclick="sign_in()" class="btn btn-dark" type="button">로그인</button>
+        <button onclick="window.location.replace('/')" class="btn btn-outline-dark" type="button">취소</button>
+    </div>
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}
