@@ -57,9 +57,11 @@ function check_id() {
 
             if (response["exists"]) {
                 alert("이미 존재하는 아이디입니다.")
+                $("#help-id").removeClass("is-safe").addClass("is-danger")
                 $("#input-id").focus()
             } else {
                 alert("사용할 수 있는 아이디입니다.")
+                $("#help-id").removeClass("is-danger").addClass("is-success")
                 $("#input-id").focus()
             }
         }
@@ -71,7 +73,7 @@ function check_name() {
     let username = $("#input-name").val()
     console.log(username)
     if (username == "") {
-        alert("닉네임 입력해주세요.")
+        alert("닉네임을 입력해주세요.")
         $("#input-name").focus()
         return;
     }
@@ -90,9 +92,11 @@ function check_name() {
 
             if (response["exists"]) {
                 alert("이미 존재하는 닉네임입니다.")
+                $("#help-name").removeClass("is-safe").addClass("is-danger")
                 $("#input-name").focus()
             } else {
                 alert("사용할 수 있는 닉네임입니다.")
+                $("#help-name").removeClass("is-danger").addClass("is-success")
                 $("#input-name").focus()
             }
         }
@@ -106,6 +110,22 @@ function sign_up() {
     let password = $("#password1").val()
     let password2 = $("#password2").val()
     console.log(userid, username, password, password2)
+
+    if ($("#help-id").hasClass("is-danger")) {
+        alert("아이디를 다시 확인해주세요.")
+        return;
+    } else if (!$("#help-id").hasClass("is-success")) {
+        alert("아이디 중복확인을 해주세요.")
+        return;
+    }
+
+    if ($("#help-name").hasClass("is-danger")) {
+        alert("닉네임을 다시 확인해주세요.")
+        return;
+    } else if (!$("#help-name").hasClass("is-success")) {
+        alert("닉네임 중복확인을 해주세요.")
+        return;
+    }
 
     if (password == "") {
         $("#help-password").text("비밀번호를 입력해주세요.").removeClass("is-safe").addClass("is-danger")

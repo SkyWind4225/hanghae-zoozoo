@@ -3,17 +3,31 @@
 {% block title %}항해ZOOZOO | 로그인{% endblock %}
 
 {% block section %}
-    <div class="signup_box">
-        <div class="input-group mb-3">
-            <input type="text" id="login-id" class="form-control" placeholder="아이디를 입력하세요">
+    <div class="box">
+        <!-- 아이디 -->
+        <div class="field">
+            <div class="control">
+                <input type="text" id="login-id" class="input enter-login" placeholder="아이디를 입력하세요">
+            </div>
+            <p id="help-id-login" class="help"></p>
         </div>
-        <p id="help-id-login" class="help"></p>
-        <div class="input-group mb-3">
-            <input type="password" class="enter-login form-control" id="login-password" placeholder="비밀번호를 입력하세요">
+        <!-- 비밀번호 -->
+        <div class="field">
+            <div class="control">
+                <input type="password" id="login-password" class="input enter-login" placeholder="비밀번호를 입력하세요">
+            </div>
+            <p id="help-password-login" class="help"></p>
         </div>
-        <p id="help-password-login" class="help"></p>
-        <button onclick="sign_in()" class="btn btn-dark" type="button">로그인</button>
-        <button onclick="window.location.replace('/')" class="btn btn-outline-dark" type="button">취소</button>
+        <!-- 버튼 -->
+        <div class="field is-grouped">
+            <div class="control is-expanded">
+                <button onclick="sign_in()" class="button is-dark is-fullwidth" type="button">로그인</button>
+            </div>
+            <div class="control is-expanded">
+                <button onclick="window.location.replace('/')" class="button is-fullwidth is-outlined" type="button">취소</button>
+            </div>
+        </div>
     </div>
+
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 {% endblock %}

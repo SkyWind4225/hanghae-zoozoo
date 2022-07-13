@@ -1,0 +1,52 @@
+.bg-video {
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    margin: 0 auto;
+    position: relative;
+}
+
+video {
+    width: 100%;
+}
+
+.bg-text {
+    position: absolute;
+    width: 100%;
+    top: 40%;
+    text-align: center;
+}
+
+.bg-text p {
+    font-family: sandoll-baikzongyulpil, sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 48px;
+    color: #FFF;
+}
+
+.bg-text p:nth-child(2) {
+    margin-top: 10px;
+}
+
+/*------------------*/
+/* Layout (No Edit) */
+/*------------------*/
+@media (max-width: 664px) {
+    .bg-video {
+        height: auto;
+    }
+
+    video {
+        width: 100%;
+        height: auto;
+    }
+
+    .bg-text {
+        height: auto;
+    }
+
+    .bg-text p {
+        font-size: 36px;
+    }
+}

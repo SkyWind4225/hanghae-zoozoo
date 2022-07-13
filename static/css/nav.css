@@ -3,9 +3,12 @@
 }
 
 .nav a {
+    font-size: 1.2rem;
+    font-weight: 400;
     color: black;
 }
 
 .nav a:hover {
     font-weight: 700;
+    color: #FF0000;
 }

@@ -1,16 +1,10 @@
-.signup_box {
+.box {
     width: 95%;
     max-width: 500px;
-    margin: 100px auto 100px auto;
+    margin: 35vh auto;
     padding: 20px;
-    box-shadow: 0 0 6px 0 gray;
 }
 
 .is-hidden {
     display: none!important;
-}
-
-.help {
-    margin-top: -5px;
-    margin-bottom: 15px;
 }
