@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}항해ZOOZOO | 글작성{% endblock %}
+
+{% block section %}
+    <div class="box">
+        <div class="field">
+            <figure class="image is-expanded">
+                <img id="preview" src="">
+            </figure>
+        </div>
+        <div class="field">
+            <div id="file-js-example" class="file has-name is-fullwidth">
+                <label class="file-label">
+                    <input id="file" class="file-input" type="file" name="resume">
+                    <span class="file-cta">
+                        <span class="file-icon"><i class="fas fa-upload"></i></span>
+                        <span class="file-label">업로드</span>
+                    </span>
+                    <span class="file-name">No file uploaded</span>
+                </label>
+            </div>
+        </div>
+        <div class="field">
+            <textarea id="content" class="textarea" rows="10" placeholder="내용을 작성해주세요"></textarea>
+        </div>
+        <div class="field is-grouped">
+            <div class="control is-expanded">
+                <button onclick="posting()" class="button is-dark is-fullwidth" type="button">등록</button>
+            </div>
+            <div class="control is-expanded">
+                <button onclick="window.location.replace('/')" class="button is-fullwidth is-outlined" type="button">취소</button>
+            </div>
+        </div>
+    </div>
+
+    {#글 작성시, 업로드한 파일 이름 표시#}
+    <script>
+        const fileInput = document.querySelector('#file-js-example input[type=file]');
+        fileInput.onchange = () => {
+            if (fileInput.files.length > 0) {
+                const fileName = document.querySelector('#file-js-example .file-name');
+                fileName.textContent = fileInput.files[0].name;
+            }
+        }
+    </script>
+
+    {#업로드한 사진 미리보기#}
+    <script>
+        function readImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    const previewImage = document.getElementById('preview');
+                    previewImage.src = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // 이벤트 리스너
+        document.getElementById('file').addEventListener('change', (e) => {
+            readImage(e.target);
+        })
+    </script>
+
+    <script src="{{ url_for('static', filename='js/posting.js') }}"></script>
+{% endblock %}

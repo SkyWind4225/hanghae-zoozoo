@@ -40,6 +40,15 @@ def login():
 def signUp():
     return render_template('signUp.html')
 
+# 글작성 화면으로 이동
+@app.route('/posting')
+def go_posting():
+    token_receive = request.cookies.get('mytoken')
+    payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+    user_info = db.users.find_one({'userid': payload['id']})
+    nickname = user_info['username']
+    return render_template('posting.html', nickname = nickname)
+
 # 아이디 중복확인
 @app.route('/signUp/check_id', methods=['POST'])
 def check_id():
@@ -91,6 +100,84 @@ def sign_in():
     # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
+
+# 글작성 Post
+@app.route('/card', methods=['POST'])
+def save_card():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"userid": payload["id"]})
+        content_receive = request.form['content_give']
+
+        # 요건
+        file = request.files["file_give"]
+        extension = file.filename.split('.')[-1]
+        # 파일 확장자 명 바꾸기
+
+        today = datetime.now()
+        mytime = today.strftime('%Y-%m-%d-%H%M%S')
+
+        filename = f'file-{mytime}'
+
+        save_to = f'static/img/{filename}.{extension}'
+        file.save(save_to)
+        # 파일 업로드 준비~서버쪽 코드
+
+        doc = {
+            'userid': user_info["userid"],
+            'username': user_info["username"],
+            'content': content_receive,
+            'file': f'{filename}.{extension}'
+        }
+        db.card.insert_one(doc)
+        return jsonify({"result": "success", 'msg': '등록 완료!'})
+        # 포스팅하기
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
+
+# 글작성 Get
+@app.route('/card', methods=['GET'])
+def show_card():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        cards = list(db.card.find({}).sort("date", -1).limit(20))
+        for card in cards:
+            card["_id"] = str(card["_id"])
+            card["count_heart"] = db.likes.count_documents({"card_id": card["_id"], "type": "heart"})
+            card["heart_by_me"] = bool(db.likes.find_one({"card_id": card["_id"], "type": "heart", "userid": payload['id']}))
+        return jsonify({"result": "success", 'all_card': cards})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        cards = list(db.card.find({}).sort("date", -1).limit(20))
+        for card in cards:
+            card["_id"] = str(card["_id"])
+            card["count_heart"] = db.likes.count_documents({"card_id": card["_id"], "type": "heart"})
+        return jsonify({"result": "success", 'all_card': cards})
+
+# 좋아요 업데이트
+@app.route('/update_like', methods=['POST'])
+def update_like():
+    token_receive = request.cookies.get('mytoken')
+    try:
+        payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+        user_info = db.users.find_one({"userid": payload["id"]})
+        card_id_receive = request.form["card_id_give"]
+        type_receive = request.form["type_give"]
+        action_receive = request.form["action_give"]
+        doc = {
+            "card_id": card_id_receive,
+            "userid": user_info["userid"],
+            "type": type_receive
+        }
+        if action_receive == "like":
+            db.likes.insert_one(doc)
+        else:
+            db.likes.delete_one(doc)
+        count = db.likes.count_documents({"card_id": card_id_receive, "type": type_receive})
+        return jsonify({"result": "success", 'msg': 'updated', "count": count})
+    except (jwt.ExpiredSignatureError, jwt.exceptions.DecodeError):
+        return redirect(url_for("home"))
 
 
 if __name__ == '__main__':
