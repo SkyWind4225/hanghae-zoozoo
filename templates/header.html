@@ -18,6 +18,13 @@
             <li><span onclick="go_posting()">글작성</span></li>
             <li><span onclick="sign_out()">로그아웃</span></li>
         </ul>
+        <ul class="header-list3">
+            <li>
+                <i class="fa-solid fa-user"></i>
+                <span>{{ nickname }}님 환영합니다!</span>
+            </li>
+            <li><span onclick="sign_out()">로그아웃</span></li>
+        </ul>
     </div>
     <script src="{{ url_for('static', filename='js/signUp.js') }}"></script>
     <script src="{{ url_for('static', filename='js/login.js') }}"></script>
