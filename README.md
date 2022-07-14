@@ -19,6 +19,12 @@
   <br><a="center" href="https://youtu.be/u9jrDb5pkIg">https://youtu.be/u9jrDb5pkIg</a>
 <p>
 
+<h3 align="center">프로젝트 링크</h3>
+
+<p align="center">
+  <a="center" href="http://hanghae-zoozoo.kro.kr/">http://hanghae-zoozoo.kro.kr/</a>
+<p>
+
 ---
 
 <h3 align="center">기술 스택</h3>
