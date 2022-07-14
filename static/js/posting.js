@@ -3,16 +3,19 @@ window.addEventListener('load', function () {
     let token = document.cookie
     let header1 = document.querySelector('.header-list');
     let header2 = document.querySelector('.header-list2');
+    let header3 = document.querySelector('.header-list3');
 
     if(token != '') {
         header1.style.display = 'none';
-        header2.style.display = 'flex';
+        header2.style.display = 'none';
+        header3.style.display = 'flex';
     }
 });
 
 //글작성 페이지로 이동
 function go_posting() {
     window.location.href = '/posting';
+
 }
 
 //글작성 Post

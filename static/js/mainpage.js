@@ -7,10 +7,12 @@ window.addEventListener('load', function () {
     let token = document.cookie
     let header1 = document.querySelector('.header-list');
     let header2 = document.querySelector('.header-list2');
+    let header3 = document.querySelector('.header-list3');
 
     if(token != '') {
         header1.style.display = 'none';
         header2.style.display = 'flex';
+        header3.style.display = 'none';
     }
 });
 
